@@ -1,0 +1,21 @@
+{
+	"name": "bowling-api",
+	"version": "1.0.0",
+	"license": "ISC",
+	"scripts": {
+		"start": "node build/server.js",
+		"build": "tsc",
+		"dev": "nodemon src/main.ts",
+		"dev:debug": "nodemon --inspect ./index.ts",
+		"test": "jest"
+	},
+	"devDependencies": {
+		"@types/jest": "^28.1.3",
+		"@types/node": "^16.11.11",
+		"jest": "^28.1.1",
+		"nodemon": "^2.0.18",
+		"ts-jest": "^28.0.5",
+		"ts-node": "^10.8.1",
+		"typescript": "^4.5.2"
+	}
+}
