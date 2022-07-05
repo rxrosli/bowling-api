@@ -1,7 +1,8 @@
 type pinScoreSymbols = 'X' | '/' | number;
 
-type Frame = {
-	pinsKnockedDown: pinScoreSymbols[];
+export type Frame = {
+	id: number;
+	pins_knocked_down: pinScoreSymbols[];
 	score: number | null;
 };
 
@@ -69,26 +70,45 @@ export const generateBowlingGame = (name: string): IBowling => {
 			const isLastRoll = index + 1 === rolls.length;
 			if (frames.length < 9) {
 				if (pinsRemaining === 0) {
-					if (rollAttempt < 2) insertFrame({ pinsKnockedDown: ['X'], score: score(frames.length + 1) });
-					else insertFrame({ pinsKnockedDown: [rolls[index - 1], '/'], score: score(frames.length + 1) });
+					if (rollAttempt < 2)
+						insertFrame({
+							id: frames.length + 1,
+							pins_knocked_down: ['X'],
+							score: score(frames.length + 1)
+						});
+					else
+						insertFrame({
+							id: frames.length + 1,
+							pins_knocked_down: [rolls[index - 1], '/'],
+							score: score(frames.length + 1)
+						});
 				} else {
 					if (rollAttempt < 2 && isLastRoll)
-						insertMidFrame({ pinsKnockedDown: [pins], score: score(frames.length + 1) });
+						insertMidFrame({
+							id: frames.length + 1,
+							pins_knocked_down: [pins],
+							score: score(frames.length + 1)
+						});
 					if (rollAttempt === 2)
-						insertFrame({ pinsKnockedDown: [rolls[index - 1], pins], score: score(frames.length + 1) });
+						insertFrame({
+							id: frames.length,
+							pins_knocked_down: [rolls[index - 1], pins],
+							score: score(frames.length + 1)
+						});
 				}
 			} else {
-				if (frames.length < 10) frames.push({ pinsKnockedDown: [], score: score(frames.length + 1) });
+				if (frames.length < 10)
+					frames.push({ id: frames.length + 1, pins_knocked_down: [], score: score(frames.length + 1) });
 				if (rollAttempt <= 2 && bonusRoll < 1 && pinsRemaining === 0) bonusRoll = 1;
 				if (rollAttempt <= 2 || bonusRoll > 0) {
 					if (rollAttempt > 2) bonusRoll = 0;
 					if (pins === 10) {
-						frames[9].pinsKnockedDown.push('X');
+						frames[9].pins_knocked_down.push('X');
 						pinReset();
 					} else if (pinsRemaining === 0) {
-						frames[9].pinsKnockedDown.push('/');
+						frames[9].pins_knocked_down.push('/');
 						pinReset();
-					} else frames[9].pinsKnockedDown.push(pins);
+					} else frames[9].pins_knocked_down.push(pins);
 				}
 			}
 		});
@@ -114,11 +134,8 @@ export const generateBowlingGame = (name: string): IBowling => {
 		const isAbleToComputeOpen = (rollIndex: number) => {
 			return rolls.length > rollIndex + 1;
 		};
-		const isAbleToComputeTenthFrame = (rollIndex: number, hasBonusRoll: boolean) => {
-			return hasBonusRoll ? rolls.length === rollIndex + 3 : rolls.length === rollIndex + 2;
-		};
-		const isPinWipeout = (pinsKnockedDown: number) => {
-			return pinsKnockedDown === 10;
+		const isPinWipeout = (pins_knocked_down: number) => {
+			return pins_knocked_down === 10;
 		};
 		while (!isScoreNull && runningFrameIndex < frame) {
 			// strike
@@ -159,6 +176,6 @@ export const generateBowlingGame = (name: string): IBowling => {
 };
 export const generateBowlingGameFromRolls = (name: string, rolls: number[]) => {
 	const bowlingGame = generateBowlingGame(name);
-	rolls.forEach(pinsKnockedDown => bowlingGame.roll(pinsKnockedDown));
+	rolls.forEach(pins_knocked_down => bowlingGame.roll(pins_knocked_down));
 	return bowlingGame;
 };
