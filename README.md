@@ -161,3 +161,10 @@ Backend bowling game scorer developed in a behavior driven way. Coding exercise 
 	}[]
 }
 ```
+
+## Available Scripts
+
+- `npm run start` - eun build server.
+- `npm run build` - transpile TypeScript to ES6.
+- `npm run test` - run all tests.
+- `npm run dev` - run locally with nodemon in localhost:3000.
