@@ -5,7 +5,7 @@
 	"scripts": {
 		"start": "node build/server.js",
 		"build": "tsc",
-		"dev": "nodemon src/main.ts",
+		"dev": "nodemon src/server.ts",
 		"dev:debug": "nodemon --inspect ./index.ts",
 		"test": "jest"
 	},
