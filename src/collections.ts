@@ -1,7 +1,7 @@
-interface BowlingDAO {
-	id: number;
+export interface BowlingDAO {
+	id: string;
 	name: string;
 	rolls: number[];
 }
 
-export const bowlingCollection: BowlingDAO[] = [];
+export let bowlingCollection: BowlingDAO[] = [];
