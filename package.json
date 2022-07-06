@@ -3,11 +3,11 @@
 	"version": "1.0.0",
 	"license": "ISC",
 	"scripts": {
-		"start": "node build/server.js",
+		"start": "node build/src/server.js",
 		"build": "tsc",
 		"dev": "nodemon src/server.ts",
 		"dev:debug": "nodemon --inspect ./index.ts",
-		"test": "jest"
+		"test": "jest --detectOpenHandles --forceExit"
 	},
 	"devDependencies": {
 		"@types/cors": "^2.8.12",
