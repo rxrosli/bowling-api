@@ -2,6 +2,14 @@
 
 Backend bowling game scorer developed in a behavior driven way. Coding exercise for StrongMind/SMLP interview.
 
+## Deployment
+
+Make sure to create a .env file with the following variables:
+
+- `PORT` - specifies what port will bw used when deployed (default is 3000)
+
+Build the application with `npm run build` then start the app with `npm run start`.
+
 ## Bowling Game
 
 - id
