@@ -1,5 +1,9 @@
 import request from 'supertest';
-import { app } from '../src/server';
+import { app, server } from '../src/server';
+
+afterEach(() => {
+	server.close();
+});
 
 describe('Given a bowling game service', () => {
 	it('Should allow to create a game.', async () => {

@@ -2,8 +2,11 @@ import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
 import endpoints from './endpoints';
+import { Server } from 'http';
 
+export let server: Server;
 export const app = express();
+
 const PORT = process.env.PORT || '3000';
 
 const corsOptions = {
@@ -19,7 +22,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use('/api', endpoints);
 
 async function main() {
-	app.listen(PORT, () => {
+	server = app.listen(PORT, () => {
 		console.info(`Server ready at port ${PORT}`);
 	});
 }
