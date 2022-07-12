@@ -6,7 +6,7 @@ Backend bowling game scorer developed in a behavior driven way. Coding exercise 
 
 Make sure to create a .env file with the following variables:
 
-- `PORT` - specifies what port will bw used when deployed (default is 3000)
+- `PORT` - specifies what port will be used when deployed (default is 3000)
 
 Build the application with `npm run build` then start the app with `npm run start`.
 
@@ -95,7 +95,7 @@ Build the application with `npm run build` then start the app with `npm run star
 ## Frame Score
 
 - id
-- pins_knocked_down
+- pinsKnockedDown
 - score
 
 ### Create Frame Score
@@ -106,7 +106,7 @@ Build the application with `npm run build` then start the app with `npm run star
 
 ```javascript
 {
-  "pins_knocked_down" : number[]
+  "pinsKnockedDown" : number[]
 }
 ```
 
@@ -132,7 +132,7 @@ Build the application with `npm run build` then start the app with `npm run star
 {
 	"data":{
 		"id": string,
-		"pins_knocked_down" : number[],
+		"pinsKnockedDown" : number[],
 		"score": number
 	}
 }
@@ -146,7 +146,7 @@ Build the application with `npm run build` then start the app with `npm run star
 
 ```javascript
 {
-  "pins_knocked_down" : number[]
+  "pinsKnockedDown" : number[]
 }
 ```
 
@@ -164,7 +164,7 @@ Build the application with `npm run build` then start the app with `npm run star
 {
 	"data":{
 		"id": string,
-		"pins_knocked_down" : number[],
+		"pinsKnockedDown" : number[],
 		"score": number
 	}[]
 }
