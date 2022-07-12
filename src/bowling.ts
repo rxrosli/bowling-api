@@ -7,6 +7,7 @@ class GameError extends Error {}
 class Game {
 	readonly name: string;
 	constructor(name: string) {
+		if (!name) throw new GameError('name should not be empty');
 		this.name = name;
 	}
 }
