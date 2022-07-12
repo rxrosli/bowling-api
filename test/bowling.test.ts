@@ -1,20 +1,20 @@
-import { IBowling, generateBowlingGame } from '../src/bowling';
+import { BowlingGame } from '../src/bowling';
 
 describe('Given a Bowling Game Factory', () => {
 	describe('When a user creates a game', () => {
 		it('Should be able to create a game', () => {
-			expect(generateBowlingGame('Anonymous')).toHaveProperty('name', 'Anonymous');
+			expect(new BowlingGame('Anonymous')).toHaveProperty('name', 'Anonymous');
 		});
 		it('Should reject if name attribute is empty', () => {
-			expect(() => generateBowlingGame('')).toThrowError('name should not be empty');
+			expect(() => new BowlingGame('')).toThrowError('name should not be empty');
 		});
 	});
 });
 
 describe('Given a Bowling Game', () => {
 	describe('When a user enters a roll', () => {
-		let bowlingGame: IBowling;
-		beforeEach(() => (bowlingGame = generateBowlingGame('Anonymous')));
+		let bowlingGame: BowlingGame;
+		beforeEach(() => (bowlingGame = new BowlingGame('Anonymous')));
 		it('Should reject roll if pins knocked down is higher than 10', () => {
 			expect(() => bowlingGame.roll(11)).toThrowError('input pins above remaining pin');
 		});
@@ -34,29 +34,29 @@ describe('Given a Bowling Game', () => {
 		});
 	});
 	describe('When a user views the frames', () => {
-		let bowlingGame: IBowling;
-		beforeEach(() => (bowlingGame = generateBowlingGame('Anonymous')));
+		let bowlingGame: BowlingGame;
+		beforeEach(() => (bowlingGame = new BowlingGame('Anonymous')));
 		it('Should display the correct number of frames', () => {
 			let rolls = [10, 10, 10, 10, 10];
 			rolls.forEach(pins_knocked_down => bowlingGame.roll(pins_knocked_down));
 			expect(bowlingGame.frames.length).toBe(5);
 
-			bowlingGame = generateBowlingGame('Anonymous');
+			bowlingGame = new BowlingGame('Anonymous');
 			rolls = [10, 10, 10, 9, 1];
 			rolls.forEach(pins_knocked_down => bowlingGame.roll(pins_knocked_down));
 			expect(bowlingGame.frames.length).toBe(4);
 
-			bowlingGame = generateBowlingGame('Anonymous');
+			bowlingGame = new BowlingGame('Anonymous');
 			rolls = [10, 10, 10, 9, 0];
 			rolls.forEach(pins_knocked_down => bowlingGame.roll(pins_knocked_down));
 			expect(bowlingGame.frames.length).toBe(4);
 
-			bowlingGame = generateBowlingGame('Anonymous');
+			bowlingGame = new BowlingGame('Anonymous');
 			rolls = [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10];
 			rolls.forEach(pins_knocked_down => bowlingGame.roll(pins_knocked_down));
 			expect(bowlingGame.frames.length).toBe(10);
 
-			bowlingGame = generateBowlingGame('Anonymous');
+			bowlingGame = new BowlingGame('Anonymous');
 			rolls = [10, 10, 10, 10, 10, 10, 10, 10, 10, 9, 0];
 			rolls.forEach(pins_knocked_down => bowlingGame.roll(pins_knocked_down));
 			expect(bowlingGame.frames.length).toBe(10);
@@ -65,8 +65,8 @@ describe('Given a Bowling Game', () => {
 });
 
 describe('Given a frame', () => {
-	let bowlingGame: IBowling;
-	beforeEach(() => (bowlingGame = generateBowlingGame('Anonymous')));
+	let bowlingGame: BowlingGame;
+	beforeEach(() => (bowlingGame = new BowlingGame('Anonymous')));
 	describe('When frame is a strike', () => {
 		it('Should have a null score if score requirements is not met', () => {
 			bowlingGame.roll(10);
@@ -81,7 +81,7 @@ describe('Given a frame', () => {
 		});
 		it('Should display roll properly', () => {
 			bowlingGame.roll(10);
-			expect(bowlingGame.frames[0].pins_knocked_down[0]).toBe('X');
+			expect(bowlingGame.frames[0].pinsKnockedDown[0]).toBe('X');
 		});
 	});
 	describe('When frame is a spare', () => {
@@ -99,16 +99,16 @@ describe('Given a frame', () => {
 		it('Should display spare rolls properly', () => {
 			bowlingGame.roll(9);
 			bowlingGame.roll(1);
-			expect(bowlingGame.frames[0].pins_knocked_down[0]).toBe(9);
-			expect(bowlingGame.frames[0].pins_knocked_down[1]).toBe('/');
+			expect(bowlingGame.frames[0].pinsKnockedDown[0]).toBe(9);
+			expect(bowlingGame.frames[0].pinsKnockedDown[1]).toBe('/');
 		});
 	});
 	describe('When frame is open', () => {
 		it('Should display open rolls properly', () => {
 			bowlingGame.roll(9);
 			bowlingGame.roll(0);
-			expect(bowlingGame.frames[0].pins_knocked_down[0]).toBe(9);
-			expect(bowlingGame.frames[0].pins_knocked_down[1]).toBe(0);
+			expect(bowlingGame.frames[0].pinsKnockedDown[0]).toBe(9);
+			expect(bowlingGame.frames[0].pinsKnockedDown[1]).toBe(0);
 		});
 		it('Should have correct score for open frames', () => {
 			bowlingGame.roll(9);
@@ -119,8 +119,8 @@ describe('Given a frame', () => {
 	describe('When frame is incomplete', () => {
 		it('Should dispaly rolls properly', () => {
 			bowlingGame.roll(3);
-			expect(bowlingGame.frames[0].pins_knocked_down.length).toBe(1);
-			expect(bowlingGame.frames[0].pins_knocked_down[0]).toBe(3);
+			expect(bowlingGame.frames[0].pinsKnockedDown.length).toBe(1);
+			expect(bowlingGame.frames[0].pinsKnockedDown[0]).toBe(3);
 		});
 		it('Should have a null score', () => {
 			bowlingGame.roll(3);
@@ -143,12 +143,12 @@ describe('Given a frame', () => {
 			rolls.forEach(pins_knocked_down => bowlingGame.roll(pins_knocked_down));
 			expect(bowlingGame.frames[9].score).toBe(274);
 
-			bowlingGame = generateBowlingGame('Anonymous');
+			bowlingGame = new BowlingGame('Anonymous');
 			rolls = [10, 10, 10, 10, 10, 10, 10, 10, 10, 9, 1, 10];
 			rolls.forEach(pins_knocked_down => bowlingGame.roll(pins_knocked_down));
 			expect(bowlingGame.frames[9].score).toBe(279);
 
-			bowlingGame = generateBowlingGame('Anonymous');
+			bowlingGame = new BowlingGame('Anonymous');
 			rolls = [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10];
 			rolls.forEach(pins_knocked_down => bowlingGame.roll(pins_knocked_down));
 			expect(bowlingGame.frames[9].score).toBe(300);
@@ -156,23 +156,23 @@ describe('Given a frame', () => {
 		it('Should display rolls properly', () => {
 			let rolls = [10, 10, 10, 10, 10, 10, 10, 10, 10, 9, 1, 5];
 			rolls.forEach(pins_knocked_down => bowlingGame.roll(pins_knocked_down));
-			expect(bowlingGame.frames[9].pins_knocked_down[0]).toBe(9);
-			expect(bowlingGame.frames[9].pins_knocked_down[1]).toBe('/');
-			expect(bowlingGame.frames[9].pins_knocked_down[2]).toBe(5);
+			expect(bowlingGame.frames[9].pinsKnockedDown[0]).toBe(9);
+			expect(bowlingGame.frames[9].pinsKnockedDown[1]).toBe('/');
+			expect(bowlingGame.frames[9].pinsKnockedDown[2]).toBe(5);
 
-			bowlingGame = generateBowlingGame('Anonymous');
+			bowlingGame = new BowlingGame('Anonymous');
 			rolls = [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 5];
 			rolls.forEach(pins_knocked_down => bowlingGame.roll(pins_knocked_down));
-			expect(bowlingGame.frames[9].pins_knocked_down[0]).toBe('X');
-			expect(bowlingGame.frames[9].pins_knocked_down[1]).toBe('X');
-			expect(bowlingGame.frames[9].pins_knocked_down[2]).toBe(5);
+			expect(bowlingGame.frames[9].pinsKnockedDown[0]).toBe('X');
+			expect(bowlingGame.frames[9].pinsKnockedDown[1]).toBe('X');
+			expect(bowlingGame.frames[9].pinsKnockedDown[2]).toBe(5);
 
-			bowlingGame = generateBowlingGame('Anonymous');
+			bowlingGame = new BowlingGame('Anonymous');
 			rolls = [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10];
 			rolls.forEach(pins_knocked_down => bowlingGame.roll(pins_knocked_down));
-			expect(bowlingGame.frames[9].pins_knocked_down[0]).toBe('X');
-			expect(bowlingGame.frames[9].pins_knocked_down[1]).toBe('X');
-			expect(bowlingGame.frames[9].pins_knocked_down[2]).toBe('X');
+			expect(bowlingGame.frames[9].pinsKnockedDown[0]).toBe('X');
+			expect(bowlingGame.frames[9].pinsKnockedDown[1]).toBe('X');
+			expect(bowlingGame.frames[9].pinsKnockedDown[2]).toBe('X');
 		});
 	});
 });
