@@ -1,7 +1,7 @@
 import { Constructor } from '../utilities/mixins';
 
 export interface Rolling {
-	rolls: number[];
+	readonly rolls: number[];
 	roll(pins: number): void;
 }
 
@@ -13,7 +13,7 @@ export function Roll<T extends Constructor>(Base: T) {
 		#rollAttempt = 0;
 		#currentFrame = 1;
 		#pinsRemaining = 10;
-		rolls: number[] = [];
+		#rolls: number[] = [];
 
 		#resetPins(): void {
 			this.#pinsRemaining = 10;
@@ -26,7 +26,7 @@ export function Roll<T extends Constructor>(Base: T) {
 		#pushRoll(pins: number): void {
 			this.#pinsRemaining -= pins;
 			this.#rollAttempt += 1;
-			this.rolls.push(pins);
+			this.#rolls.push(pins);
 		}
 		#isSpare(): boolean {
 			return this.#pinsRemaining === 0 && this.#rollAttempt === 2;
@@ -34,6 +34,11 @@ export function Roll<T extends Constructor>(Base: T) {
 		#isStrike(): boolean {
 			return this.#pinsRemaining === 0 && this.#rollAttempt === 1;
 		}
+
+		get rolls() {
+			return this.#rolls;
+		}
+
 		roll(pins: number): void {
 			if (this.#rollAttempt >= 2 && this.#bonusRoll === 0) throw new RollingError('game has concluded');
 			if (pins > this.#pinsRemaining) throw new RollingError('input pins above remaining pins');
