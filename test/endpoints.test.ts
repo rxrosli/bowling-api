@@ -64,14 +64,14 @@ describe('Given a bowling game service', () => {
 		it('Should allow to create and read of a frame score', async () => {
 			response = await request(app)
 				.post('/api/games/' + game_id + '/shots')
-				.send({ pins_knocked_down: [10] });
+				.send({ pinsKnockedDown: [10] });
 			expect(response.statusCode).toBe(201);
 
 			response = await request(app)
 				.get('/api/games/' + game_id + '/shots/1')
 				.send();
 			expect(response.statusCode).toBe(200);
-			expect(response.body.data.pins_knocked_down[0]).toBe('X');
+			expect(response.body.data.pinsKnockedDown[0]).toBe('X');
 		});
 		it('Should allow to delete a frame score', async () => {
 			/**
@@ -79,14 +79,14 @@ describe('Given a bowling game service', () => {
 			 * and shifting the succeeding frames left.
 			 *
 			 * ex. remove frame 1
-			 * [{id: 1, pins_knocked_down: [X]}, {id: 2, pins_knocked_down: [9,/]}] => [{id: 1, pins_knocked_down: [9,/]}]
+			 * [{id: 1, pinsKnockedDown: [X]}, {id: 2, pinsKnockedDown: [9,/]}] => [{id: 1, pinsKnockedDown: [9,/]}]
 			 */
 			response = await request(app)
 				.post('/api/games/' + game_id + '/shots')
-				.send({ pins_knocked_down: [10] });
+				.send({ pinsKnockedDown: [10] });
 			response = await request(app)
 				.post('/api/games/' + game_id + '/shots')
-				.send({ pins_knocked_down: [9, 1] });
+				.send({ pinsKnockedDown: [9, 1] });
 
 			response = await request(app)
 				.delete('/api/games/' + game_id + '/shots/1')
@@ -97,24 +97,24 @@ describe('Given a bowling game service', () => {
 				.get('/api/games/' + game_id + '/shots/1')
 				.send();
 			expect(response.statusCode).toBe(200);
-			expect(response.body.data.pins_knocked_down[0]).toBe(9);
-			expect(response.body.data.pins_knocked_down[1]).toBe('/');
+			expect(response.body.data.pinsKnockedDown[0]).toBe(9);
+			expect(response.body.data.pinsKnockedDown[1]).toBe('/');
 		});
 		it('Should allow to update a frame score', async () => {
 			/**
-			 * ex. update frame 2 pins_knocked_down to [5,5]
-			 * [{id: 1, pins_knocked_down: [X]}, {id: 2, pins_knocked_down: [9,/]}] => [{id: 1, pins_knocked_down: [X]}, {id: 2, pins_knocked_down: [5,/]}]}]
+			 * ex. update frame 2 pinsKnockedDown to [5,5]
+			 * [{id: 1, pinsKnockedDown: [X]}, {id: 2, pinsKnockedDown: [9,/]}] => [{id: 1, pinsKnockedDown: [X]}, {id: 2, pinsKnockedDown: [5,/]}]}]
 			 */
 			response = await request(app)
 				.post('/api/games/' + game_id + '/shots')
-				.send({ pins_knocked_down: [10] });
+				.send({ pinsKnockedDown: [10] });
 			response = await request(app)
 				.post('/api/games/' + game_id + '/shots')
-				.send({ pins_knocked_down: [9, 1] });
+				.send({ pinsKnockedDown: [9, 1] });
 
 			response = await request(app)
 				.put('/api/games/' + game_id + '/shots/2')
-				.send({ pins_knocked_down: [5, 5] });
+				.send({ pinsKnockedDown: [5, 5] });
 			expect(response.statusCode).toBe(204);
 
 			response = await request(app)
@@ -122,8 +122,8 @@ describe('Given a bowling game service', () => {
 				.send();
 
 			expect(response.statusCode).toBe(200);
-			expect(response.body.data.pins_knocked_down[0]).toBe(5);
-			expect(response.body.data.pins_knocked_down[1]).toBe('/');
+			expect(response.body.data.pinsKnockedDown[0]).toBe(5);
+			expect(response.body.data.pinsKnockedDown[1]).toBe('/');
 		});
 	});
 });
