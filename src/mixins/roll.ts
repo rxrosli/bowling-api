@@ -1,10 +1,11 @@
-import { BowlingError } from '../utilities/errors';
 import { Constructor } from '../utilities/mixins';
 
 export interface Rolling {
 	rolls: number[];
 	roll(pins: number): void;
 }
+
+export class RollingError extends Error {}
 
 export function Roll<T extends Constructor>(Base: T) {
 	return class Rolling extends Base {
@@ -34,8 +35,8 @@ export function Roll<T extends Constructor>(Base: T) {
 			return this.#pinsRemaining === 0 && this.#rollAttempt === 1;
 		}
 		roll(pins: number): void {
-			if (this.#rollAttempt >= 2 && this.#bonusRoll === 0) throw new BowlingError('game has concluded');
-			if (pins > this.#pinsRemaining) throw new BowlingError('input pins above remaining pins');
+			if (this.#rollAttempt >= 2 && this.#bonusRoll === 0) throw new RollingError('game has concluded');
+			if (pins > this.#pinsRemaining) throw new RollingError('input pins above remaining pins');
 			this.#pushRoll(pins);
 			if (this.#currentFrame < 10) {
 				if (this.#pinsRemaining === 0 || this.#rollAttempt > 1) this.#nextFrame();

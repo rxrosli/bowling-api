@@ -2,6 +2,8 @@ import { Roll } from './mixins/roll';
 import { Score } from './mixins/score';
 import { Frame } from './mixins/frame';
 
+class GameError extends Error {}
+
 class Game {
 	readonly name: string;
 	constructor(name: string) {
