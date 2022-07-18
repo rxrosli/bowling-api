@@ -1,29 +1,40 @@
 {
 	"compilerOptions": {
+		/* Basic Options */
 		"target": "esnext",
 		"module": "commonjs",
-		"lib": ["dom", "es6", "es2019", "esnext.asynciterable"],
-		"sourceMap": true,
-		"allowJs": false,
-		"skipLibCheck": true,
-		"strict": true,
-		"forceConsistentCasingInFileNames": true,
-		"esModuleInterop": true,
-		"moduleResolution": "node",
-		"resolveJsonModule": true,
-		"isolatedModules": false,
 		"outDir": "./build",
-		"preserveConstEnums": true,
-		"removeComments": true,
+		"lib": ["dom", "es6", "es2019", "esnext.asynciterable"],
+
+		/* Strict Type-Checking Options */
+		"strict": true,
 		"strictNullChecks": true,
 		"strictFunctionTypes": true,
 		"noImplicitThis": true,
 		"noFallthroughCasesInSwitch": true,
-		"allowSyntheticDefaultImports": true,
-		"emitDecoratorMetadata": true,
-		"experimentalDecorators": true,
+		"allowJs": false,
+
+		/* Module Resolution Options*/
+		"moduleResolution": "node",
+		"resolveJsonModule": true,
+		"isolatedModules": false,
+
+		/* Emit Options*/
+		"sourceMap": true,
+		"incremental": true,
 		"declaration": true,
-		"incremental": true
+		"skipLibCheck": true,
+		"esModuleInterop": true,
+		"preserveConstEnums": true,
+		"removeComments": true,
+		"allowSyntheticDefaultImports": true,
+
+		/* Experimental Options */
+		"experimentalDecorators": true,
+		"emitDecoratorMetadata": true,
+
+		/* Advanced Options */
+		"forceConsistentCasingInFileNames": true
 	},
 	"include": ["**/*.ts"],
 	"exclude": ["node_modules", "./build"]
